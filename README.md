@@ -10,11 +10,20 @@ You can create the script manually or download it directly from the repository.
 
 DIR="$HOME/Pictures"
 FILENAME="Screenshot_$(date +%Y-%m-%d_%H-%M-%S).jpg"
+FILEPATH="$DIR/$FILENAME"
 # -f: Take screenshot of full screen
-# -u: Take screenshot of active window 
+# -w: Take screenshot of active window 
 # -r: Take screenshot of selected screen (partially)
-xfce4-screenshooter -f -s "$DIR/$FILENAME"
-notify-send "Screenshot Saved" "$DIR/$FILENAME" -t 1200
+xfce4-screenshooter -f -s "$FILEPATH"
+
+if [ -f "$FILEPATH" ]; then
+    notify-send "Screenshot Saved" "$FILEPATH" -t 1200
+else
+    notify-send "Screenshot Cancelled" -t 1200
+fi
 ```
 # Example shortcut
 ![Screenshot_2026-02-09_10-23-56](https://github.com/user-attachments/assets/d5a66870-65cc-4f69-8ad1-c8a5c9b66169)
+
+# Known Issue
+-w flag doesn't work well with .jpg format, if you want to use -w flag you can change output format to .png instead
